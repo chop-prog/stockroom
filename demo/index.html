@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stockroom — демо</title>
+<meta name="description" content="Как склад не продаёт один товар дважды: гонка 100 запросов и резервирование прямо в браузере.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Java · Spring Boot</p>
+    <h1>Как не продать последний товар дважды</h1>
+    <p class="lead">100 покупателей одновременно хотят 10 оставшихся единиц. Один и тот же сервер, разница в одном запросе к базе.</p>
+    <p class="notice">Демо работает в браузере: правила сервиса перенесены на JavaScript, сервер здесь не запускается. Настоящий код на Java и его тесты — <a href="https://github.com/chop-prog/stockroom">на GitHub</a>.</p>
+  </header>
+
+  <section>
+    <button type="button" id="run" class="primary">Запустить 100 запросов</button>
+    <div class="race">
+      <article id="naive" class="lane">
+        <h2>Прочитал, потом сохранил</h2>
+        <pre><code>available = read();
+if (available &gt;= 1) save(available - 1);</code></pre>
+        <div class="dots" aria-hidden="true"></div>
+        <p class="score"></p>
+      </article>
+      <article id="atomic" class="lane">
+        <h2>Один SQL-запрос</h2>
+        <pre><code>update product set available = available - 1
+ where id = ? and available &gt;= 1;</code></pre>
+        <div class="dots" aria-hidden="true"></div>
+        <p class="score"></p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="title">Попробуйте API</h2>
+    <div class="play">
+      <div class="panel">
+        <p class="big"><span id="left"></span> <small>единиц доступно</small></p>
+        <form id="form" class="row">
+          <label for="qty">Сколько</label>
+          <input id="qty" type="number" min="1" value="2">
+          <button type="submit" class="primary">Зарезервировать</button>
+        </form>
+        <button type="button" id="skip">Перемотать на 16 минут</button>
+        <ul id="list" class="list"></ul>
+      </div>
+      <div class="panel">
+        <h3>Что ответил сервер</h3>
+        <ol id="log" class="log"></ol>
+      </div>
+    </div>
+  </section>
+
+  <footer>Сделал <a href="https://chop-prog.github.io">chop-prog</a> вместе с Claude Code</footer>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -2,6 +2,8 @@
 
 REST API склада: клиенты резервируют товар, неоплаченный резерв истекает и возвращается на склад, а один и тот же товар нельзя продать дважды.
 
+**[Открыть демо →](https://chop-prog.github.io/stockroom/)** — гонка 100 запросов и резервирование в браузере. Правила перенесены на JavaScript в [`demo/`](demo), сам сервис на Java там не запускается.
+
 _English: a Spring Boot REST API for reserving stock. Atomic SQL updates make overselling impossible; a test fires 100 concurrent requests at the last 10 units._
 
 Java 21 · Spring Boot 3.5 · Spring Data JPA · H2 · JUnit 5 · MockMvc
